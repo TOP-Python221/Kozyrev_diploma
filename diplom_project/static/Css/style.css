@@ -1,0 +1,33 @@
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+}
+
+.header{
+    background: rgb(202, 156, 156);
+    height: 100px;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+.menu{
+    background: black;
+    display: grid;
+}
+
+.info{
+    background: black;
+    display: grid;
+}
+
+
+.avatar{
+    height: 75px;
+    width: 75px;
+    background: red;
+    border-radius: 50%;
+    justify-self: end;
+    margin-right: 5px;
+    margin-top: 5px;
+}
