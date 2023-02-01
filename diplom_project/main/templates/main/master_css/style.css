@@ -4,20 +4,28 @@ padding: 0;
 box-sizing: border-box;
 }
 
+body{
+    height: 100%;
+    width: 100%;
+
+}
 .header{
     background: rgb(251, 246, 246);
-    height: 90px;
-    width: 100vw;
+    
+    height: 10vmax;
+    width: 100%;
     display: grid;
-    grid-template-columns: 200px 200px 400px auto;
+    grid-template-columns: 20% 20% 40% auto;
     box-shadow: 0 5px 5px #9da9b1;
     justify-content: center;
     
 }
 .search{
     background: #A3D0C3;
+    width: 90%;
     height: 30px;
     display: grid;
+    grid-template-columns: 80% 20%;
     box-shadow: 0 5px 5px #9da9b1;
     justify-self: center;
     align-self: center;
@@ -27,7 +35,6 @@ box-sizing: border-box;
 
 
 .search input{
-  width: 350px;
   padding-left: 10px;
   border: 2px solid #7BA7AB;
   border-radius: 5px;
@@ -37,9 +44,8 @@ box-sizing: border-box;
 }
 .search button{
   grid-column: 2/3;
-  right: 0px;
-  width: 42px;
-  height: 30px;
+  width: 100%;
+  height: 100%;
   border: none;
   background: #7BA7AB;
   border-radius: 0 5px 5px 0;
@@ -56,7 +62,7 @@ box-sizing: border-box;
 
 .home {
     height: 30px;
-    width: 85px;
+    width: 50%;
     margin: 5px;
     border: 2px solid #7BA7AB;
     box-shadow: 0 5px 5px #9da9b1;
@@ -79,8 +85,9 @@ box-sizing: border-box;
 }
 .help {
     height: 30px;
-    width: 85px;
+    width: 50%;
     margin: 5px;
+    border: 2px solid #7BA7AB;
     background: #A3D0C3;
     border-radius: 5%;
     display: grid;
@@ -101,7 +108,8 @@ box-sizing: border-box;
 
 .status_name {
     height: 30px;
-    width: 85px;
+    width: 90%;
+    border: 2px solid #7BA7AB;
     margin: 5px;
     background: #A3D0C3;
     border-radius: 5%;
@@ -125,24 +133,35 @@ box-sizing: border-box;
 .info{
     grid-column: -2/-1;
     display: grid;
-    grid-template-columns: auto auto 135px;
+    grid-template-columns: 50%  135px;
 }
 
 .avatar{
     grid-column: -2/ -1;
     height: 75px;
-    width: 75px;
+    width: 60%;
     background: red;
     border-radius: 50%;
-    justify-self: end;
-    margin-right: 35px;
-    margin-top: 5px;
+    justify-self: center;
+    align-self: center;
     
 }
 
+.all_content{
+    height: 80vmax;
+    width: 90%;
+    background: rgb(251, 246, 246);
+    box-shadow: 0 5px 5px #9da9b1;
+    margin: auto;
+    margin-top: 25px;
+    margin-bottom: 15px;
+    display: grid;
+    grid-template-rows: 10% 20% 80%;
 
-/* .footer{
-    height: 100px;
+}
+
+.footer{
+    height: 10vmax;
     width: 100vw;
     background: rgb(15, 15, 242);
-} */
+}
