@@ -1,17 +1,17 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<!--    {% load static %}-->
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="D:\Progs\Web_program_python_DIPLOM\diplom_project\main\templates\main\master_css\style.css">
-<!--    {% static 'Css/style.css' %}-->
+    <link rel="stylesheet" href="{% static 'Css/style.css' %}">
+
     <title>{% block title %} {% endblock %}</title>
 </head>
 <body>
-<div class="header">
+<div class="header" id="header">
     <div class="home">
     <a href="{% url 'home' %}">Главная</a>
     </div>
@@ -25,10 +25,48 @@
     
     
     </div>
-    <div class="info">
+    <div class="info" >
         
         <div class="status_name">
-            <a class="sing_up" href="sing_up.html">sing_up</a>
+            <button id="sing_up" class="sing_up">sing_up</button>
+
+            <div class="model" id="model">
+                <div class="model-window">
+                    <input>
+
+
+                    <button class="btn-close">X</button>
+                </div>
+
+                <div class="overlay"> </div>
+
+            </div>
+            <script>
+    let popupBg = document.querySelector('.overlay');
+    let popup = document.querySelector('.model');
+    let openPopupButtons = document.querySelectorAll('.sing_up');
+    let closePopupButton = document.querySelector('.btn-close');
+
+            openPopupButtons.forEach((button) => {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    popupBg.classList.add('active');
+                    popup.classList.add('active');
+            })
+            });
+            closePopupButton.addEventListener('click',() => {
+                popupBg.classList.remove('active');
+                popup.classList.remove('active');
+                });
+    document.addEventListener('click', (e) => {
+    if(e.target === popupBg) {
+        popupBg.classList.remove('active');
+        popup.classList.remove('active');
+    }
+});
+            </script>
+
+
             <!-- <div class="name">{Dealer}</div>
             <div class="status">{WORK}</div>
             <div class="reating">{5-0.1}</div> -->
@@ -40,12 +78,24 @@
     </div>
 
 </div>
-<div class="all_content">Основной контент</div>
+{% block content %}
+<div class="all_content">
+    <div class="choise"> 
+        <div class="work">
+            <a href="">Найти работу</a>
+        </div>
+        <div class="worked">
+            <a href="#">Разместить задание</a>
+        </div>
+    </div>
+    <div class="work_content">
+<!--    <iframe src="help.html" frameborder="0"></iframe>-->
+</div>
+</div>
+{% endblock %}
 
-<!-- {% block content %} {% endblock %} -->
 
 <div class="footer">
-
 
 </div>
 </body>
