@@ -6,7 +6,6 @@
 
 #header {
     background: rgb(251, 246, 246);
-
     height: 10vmax;
     width: 100%;
     display: grid;
@@ -159,6 +158,7 @@
 
 }
 
+
 .model .overlay {
     position: absolute;
     top: 0;
@@ -173,6 +173,7 @@
 
 .model-window {
     display: grid;
+    grid-template-rows: auto auto auto;
     margin: auto;
     position: relative;
     z-index: 2;
@@ -324,3 +325,4 @@
 .work_content iframe {
     width: 100%;
 }
+

@@ -1,0 +1,16 @@
+{% extends 'main/index/base.html' %}
+
+{% block title %}
+User
+{% endblock %}
+
+{% block content %}
+
+<div class="all_content">
+    <form method="post">
+        {%  csrf_token %}
+        {{log_user}}
+    </form>
+
+</div>
+    {% endblock %}
