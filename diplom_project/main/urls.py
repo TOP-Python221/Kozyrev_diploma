@@ -8,6 +8,6 @@ urlpatterns = [
     path('sing_up', sing_up, name='sing_up'),
     path('register', register_users, name='register'),
     path('post/<int:post_id>/', show_post, name='post'),
-    path('category/<int:cat_id>/',show_category, name='category'),
+    path('category/<int:cat_id>/', show_category, name='category'),
 
 ]

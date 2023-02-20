@@ -4,41 +4,32 @@
 {{ title }}}
 
 {% block content %}
+
 <div class="all_content">
     <div class="choise">
-    {% for c in cats %}
-    {% if c.pk == cat_selected %}
-        <div class="work">
-            <li class="selected">{{c.name}}}</li>
-        </div>
-    {% else %}
-        <div class="work">
-            <a href="{{ c.get_absolute_url }}">{{c.name}}</a>
-        </div>
+        {% for c in cats %}
+            {% if c.pk == cat_selected %}
+            <div class="work">
+                <li class="selected">{{c.name}}</li>
+            </div>
+            {% else %}
+            <div class="work">
+                <a href="{{ c.get_absolute_url }}">{{c.name}}</a>
+            </div>
        {% endif %}
-    {% endfor %}
+       {% endfor %}
     </div>
-
-    {% for p in posts %}
-
-        <div class="posts">
-            <div class="photo">Тут фото</div>
-
-        <h1>{{ p.title }}</h1>
+{% for p in posts %}
+    <div class="posts">
+        <div class="photo">Тут фото</div>
+            <h1>{{ p.title }}</h1>
             {% autoescape on %}
-        {{ p.content|linebreaks|truncatewords:25 }}
+        {{ p.content|linebreaks|truncatewords:5 }}
             {% endautoescape  %}
             <div class="home" id="btn-post">
                 <a href="{{ p.get_absolute_url }}">Открыть</a>
             </div>
-
         </div>
-
     {% endfor %}
-
-
-
-
-
 </div>
 {% endblock %}

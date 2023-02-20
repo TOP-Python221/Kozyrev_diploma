@@ -14,14 +14,7 @@ menu = [{'title': 'Главная', 'url_name': 'home'},
         {'title': 'Регистрация', 'url_name': 'register'},
         {'title': 'Вход', 'url_name': 'sing_up'},
         ]
-choise_cat = [{'title': 'Поиск работы'},
-              {'title': 'Поиск работника'},
-              ]
 
-
-# class MainHome(ListView):
-#     model = Account
-#     template_name = 'main/index/main.html'
 
 def index(request):
     posts = Posts.objects.all()
@@ -57,5 +50,15 @@ def register_users(request):
 def show_post(request, post_id):
     return HttpResponse(f"Отображение статьи с id = {post_id}")
 
+
 def show_category(request, cat_id):
-    return HttpResponse(f"Отображение статьи с id = {cat_id}")
+    posts = Posts.objects.filter(cat_id=cat_id)
+    cats = Category.objects.all()
+
+    context = {'posts': posts,
+               'cats': cats,
+               'menu': menu,
+               'title': 'Главная страница',
+               'cat_selected': cat_id,
+               }
+    return render(request, 'main/index/main.html', context=context)
