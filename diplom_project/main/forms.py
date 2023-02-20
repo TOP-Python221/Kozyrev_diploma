@@ -3,10 +3,10 @@ from django import forms
 from .models import *
 
 
-class UserRegister(forms.ModelForm):
-    class Meta:
-        model = Account
-        fields = ['login', 'password', 'email']
-        widgets = {
-            'password': forms.PasswordInput(),
-        }
+# class UserRegister(forms.ModelForm):
+#     class Meta:
+#         model = Posts
+#         fields = ['title', 'content', 'photo']
+#         widgets = {
+#             'password': forms.PasswordInput(),
+#         }

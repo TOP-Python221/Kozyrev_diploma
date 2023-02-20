@@ -1,29 +1,7 @@
 {% extends 'main/index/base.html' %}
 
-{% block title %}
-Register
-{% endblock %}
-
+{{ title }}
 
 {% block content %}
-
-
-    <div class="register_form">
-    <form class="form" method="post">
-        {%  csrf_token %}
-        <div> {{reg_user.non_field_error}}</div>
-        {% for f in reg_user %}
-
-        <p><label class="form-label" for="{{f.id_for_label}}">
-            {{ f.label }}: </label> {{ f }}</p>
-
-        {% endfor %}
-
-        <button type="submit"> Регистрация </button>
-    </form>
-
-</div>
-
-
 
 {% endblock %}
