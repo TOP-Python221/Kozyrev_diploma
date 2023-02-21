@@ -1,6 +1,6 @@
 {% extends 'main/index/base.html' %}
 
-
+{% load static%}
 {{ title }}}
 
 {% block content %}
@@ -8,28 +8,37 @@
 <div class="all_content">
     <div class="choise">
         {% for c in cats %}
-            {% if c.pk == cat_selected %}
-            <div class="work">
-                <li class="selected">{{c.name}}</li>
-            </div>
-            {% else %}
-            <div class="work">
-                <a href="{{ c.get_absolute_url }}">{{c.name}}</a>
-            </div>
-       {% endif %}
-       {% endfor %}
-    </div>
-{% for p in posts %}
-    <div class="posts">
-        <div class="photo">Тут фото</div>
-            <h1>{{ p.title }}</h1>
-            {% autoescape on %}
-        {{ p.content|linebreaks|truncatewords:5 }}
-            {% endautoescape  %}
-            <div class="home" id="btn-post">
-                <a href="{{ p.get_absolute_url }}">Открыть</a>
-            </div>
+        {% if c.pk == cat_selected %}
+        <div class="work">
+            <li class="selected">{{c.name}}</li>
         </div>
+        {% else %}
+        <div class="work">
+            <a href="{{ c.get_absolute_url }}">{{c.name}}</a>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+    {% for p in posts %}
+    <div class="posts">
+        {% if p.photo %}
+        <div class="photo"><img src="{{ p.photo.url }}"></div>
+        {% else %}
+        <div class="photo"><img src="{% static 'images/2.jpeg' %}"></div>
+        {% endif %}
+        <h1>{{ p.title }}</h1>
+        <div class="up_panel"><p>{{p.cat}} {{ p.time_update|date:"d-m-Y H:m:s"}}</p>
+
+
+        </div>
+        {% autoescape on %}
+        {{ p.content|linebreaks|truncatewords:15 }}
+        {% endautoescape %}
+
+        <div class="home" id="btn-post">
+            <a href="{{ p.get_absolute_url }}">Открыть</a>
+        </div>
+    </div>
     {% endfor %}
 </div>
 {% endblock %}

@@ -15,20 +15,20 @@
 {% block header %}
 <div class="header" id="header">
     {% for m in menu%}
-        {% if m.title == Поиск%}
-            <div class="search">
-                <input type="text" placeholder="Искать здесь">
-                <button type="submit"></button>
-            </div>
-        {% else %}
-            <div class="home" id="{{ m.url_name }}">
-                <a href="{% url m.url_name %}">{{ m.title }}</a>
-            </div>
+    {% if m.title == Поиск%}
+    <div class="search">
+        <input type="text" placeholder="Искать здесь">
+        <button type="submit"></button>
+    </div>
+    {% else %}
+    <div class="home" id="{{ m.url_name }}">
+        <a href="{% url m.url_name %}">{{ m.title }}</a>
+    </div>
     {% endif %}
     {% endfor %}
 
 </div>
-    {% endblock %}
+{% endblock %}
 
 
 {% block content %}
