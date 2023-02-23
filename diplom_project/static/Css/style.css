@@ -9,19 +9,43 @@
     height: 10vmax;
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1fr 300px 200px 150px;
+    grid-template-columns: 1fr 1fr 1fr 300px 200px 150px;
     box-shadow: 0 5px 5px #9da9b1;
     justify-content: center;
 }
 
+.main_content {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr 1fr;
+    margin: 20px;
+    row-gap: 25px;
+}
+
 .posts {
     display: grid;
-    margin: 10px;
-    height: 90%;
+    width: 98%;
+    grid-gap: 2px;
     border: solid #9E9C9C 2px;
     box-shadow: 0 5px 5px #9da9b1;
-    background: #6FC6FF;
-    grid-template-columns: 100px 1fr 1fr;
+    background: #F9F0DA;
+    justify-content: center;
+    grid-template-columns: 100px auto;
+    grid-template-rows: min-content;
+    text-decoration: none;
+}
+
+.posts:visited {
+    text-decoration: none;
+}
+
+.posts h1 {
+    font-size: 25px;
+}
+
+.posts:hover {
+    box-shadow: 0 5px 5px #A3D0C3;
+    background-color: #6FC6FF;
 }
 
 .posts p {
@@ -32,11 +56,27 @@
     grid-column: -2/-1;
     width: 20%;
     margin-right: 10px;
-    justify-self: end;
+    justify-self: center;
 }
 
-.up_panel {
-    justify-self: end;
+
+.up_post {
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: auto auto;
+    height: 50%;
+
+}
+
+.up_post_photo {
+    width: 20%;
+}
+
+.up_post_photo img {
+    box-sizing: content-box;
+
+    height: 125px;
+    width: 125px;
 }
 
 #sing_up {
@@ -48,11 +88,13 @@
 }
 
 .photo img {
-    grid-row: 1/3;
     border: solid #F9F0DA 2px;
     margin: 5px;
-    height: 80%;
-    width: 90%;
+    height: 75px;
+    width: 75px;
+    box-sizing: content-box;
+    border-radius: 50px;
+
 }
 
 .search {
@@ -105,6 +147,7 @@
     display: grid;
     justify-self: center;
     align-self: center;
+    font-size: 90%;
 
 }
 
@@ -115,6 +158,7 @@
 .home a {
     width: 100%;
     text-align: center;
+
     color: black;
     text-decoration: none;
     justify-self: center;
@@ -130,13 +174,17 @@
     margin-top: 25px;
     margin-bottom: 15px;
     display: grid;
-    grid-template-rows: 10% 20% 20% 20% 20% 90%;
+    grid-auto-rows: min-content;
+    grid-gap: 25px;
+
 }
 
 .choise {
     display: grid;
     grid-template-columns: 1fr 1fr;
     justify-items: center;
+    margin: 20px;
+
 }
 
 .selected {
@@ -166,9 +214,27 @@
     align-self: center;
 }
 
+.add_page {
+    width: 80%;
+    display: grid;
+    justify-self: center;
+    row-gap: 15px;
+}
+.form-post {
+    display: grid;
+    grid-template-columns: 30% 70%;
+
+}
+.form_content {
+
+    height: 150px;
+}
+.form_url {
+    width: 140px;
+}
+
 .footer {
     height: 10vmax;
     width: 100%;
     background: rgb(15, 15, 242);
 }
-
