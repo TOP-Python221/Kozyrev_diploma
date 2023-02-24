@@ -10,12 +10,13 @@
 <div class="up_post">
     {% if post.photo %}
     <div class="up_post_photo"><img src="{{ post.photo.url }}"></div>
-     {% else %}
-        <div class="photo"><img src="{% static 'images/2.jpeg' %}"></div>
+    {% else %}
+    <div class="photo"><img src="{% static 'images/2.jpeg' %}"></div>
     {% endif %}
     <div>
-<h1> {{post.title}}</h1>
-{{ post.content|linebreaks}}</div>
+        <h1> {{post.title}}</h1>
+        {{ post.content|linebreaks}}
+    </div>
 
 </div>
 

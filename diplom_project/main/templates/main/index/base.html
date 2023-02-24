@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru" xmlns="http://www.w3.org/1999/html">
 <head>
-{% load main_tags %}
+    {% load main_tags %}
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -30,8 +30,8 @@
 </div>
 {% endblock %}
 <div class="all_content">
-{% block choice %}
-{% get_categories as cats %}
+    {% block choice %}
+    {% get_categories as cats %}
 
     <div class="choise">
         {% for c in cats %}
@@ -51,11 +51,10 @@
     {% endblock %}
 
 
+    {% block content %}
+    {% endblock %}
 
-{% block content %}
-{% endblock %}
-
-  </div>
+</div>
 {% block footer %}
 
 {% endblock %}

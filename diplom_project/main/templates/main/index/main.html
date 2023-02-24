@@ -3,30 +3,30 @@
 {{ title }}}
 
 {% block content %}
- <div class="main_content">
-        {% for p in posts %}
-        <div class="posts">
-            {% if p.photo %}
-            <div class="photo"><img src="{{ p.photo.url }}"></div>
-            {% else %}
-            <div class="photo"><img src="{% static 'images/2.jpeg' %}"></div>
-            {% endif %}
-            <div>
-                <h1>{{ p.title }}</h1>
-                {% autoescape on %}
-                {{ p.content|linebreaks|truncatewords:15 }}
-                {% endautoescape %}
-            </div>
-            <div class="up_panel"><p>{{p.cat}} {{ p.time_update|date:"d-m-Y H:m:s"}}</p>
-
-
-            </div>
-
-            <div class="home" id="btn-post">
-                <a href="{{ p.get_absolute_url }}">Открыть</a>
-            </div>
+<div class="main_content">
+    {% for p in posts %}
+    <div class="posts">
+        {% if p.photo %}
+        <div class="photo"><img src="{{ p.photo.url }}"></div>
+        {% else %}
+        <div class="photo"><img src="{% static 'images/2.jpeg' %}"></div>
+        {% endif %}
+        <div>
+            <h1>{{ p.title }}</h1>
+            {% autoescape on %}
+            {{ p.content|linebreaks|truncatewords:15 }}
+            {% endautoescape %}
         </div>
-        {% endfor %}
+        <div class="up_panel"><p>{{p.cat}} {{ p.time_update|date:"d-m-Y H:m:s"}}</p>
+
+
+        </div>
+
+        <div class="home" id="btn-post">
+            <a href="{{ p.get_absolute_url }}">Открыть</a>
+        </div>
     </div>
+    {% endfor %}
+</div>
 {% endblock %}
 
