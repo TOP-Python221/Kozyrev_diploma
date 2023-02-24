@@ -1,26 +1,9 @@
 {% extends 'main/index/base.html' %}
-{% load main_tags %}
 {% load static%}
 {{ title }}}
 
-
 {% block content %}
-{% get_categories as cats %}
-<div class="all_content">
-    <div class="choise">
-        {% for c in cats %}
-        {% if c.pk == cat_selected %}
-        <div class="work">
-            <li class="selected">{{c.name}}</li>
-        </div>
-        {% else %}
-        <div class="work">
-            <a href="{{ c.get_absolute_url }}">{{c.name}}</a>
-        </div>
-        {% endif %}
-        {% endfor %}
-    </div>
-    <div class="main_content">
+ <div class="main_content">
         {% for p in posts %}
         <div class="posts">
             {% if p.photo %}
@@ -45,5 +28,5 @@
         </div>
         {% endfor %}
     </div>
-</div>
 {% endblock %}
+

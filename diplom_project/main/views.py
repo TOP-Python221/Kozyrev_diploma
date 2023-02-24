@@ -17,15 +17,43 @@ menu = [{'title': 'Главная', 'url_name': 'home'},
         ]
 
 
-def index(request):
-    posts = Posts.objects.all()
-    context = {'posts': posts,
-               'menu': menu,
-               'title': 'Главная страница',
-               'cat_selected': 0
-               }
+class MainPost(ListView):
+    model = Posts
+    template_name = 'main/index/main.html'
+    context_object_name = 'posts'
 
-    return render(request, 'main/index/main.html', context=context)
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = 'Главная страница'
+        return context
+
+
+class CategoryPost(ListView):
+    model = Posts
+    template_name = 'main/index/main.html'
+    context_object_name = 'posts'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['menu'] = menu
+        context['title'] = 'Категория -' + str(context['posts'][0].cat)
+        context['cat_selected'] = context['posts'][0].cat_id
+        return context
+
+    def get_queryset(self):
+        return Posts.objects.filter(cat__slug=self.kwargs['cat_slug'])
+
+
+# def index(request):
+#     posts = Posts.objects.all()
+#     context = {'posts': posts,
+#                'menu': menu,
+#                'title': 'Главная страница',
+#                'cat_selected': 0
+#                }
+#
+#     return render(request, 'main/index/main.html', context=context)
 
 
 def add_post(request):
@@ -63,19 +91,18 @@ def register_users(request):
 
 def show_post(request, post_slug):
     post = get_object_or_404(Posts, slug=post_slug)
-    context = {'posts': post,
+    context = {'post': post,
                'menu': menu,
                'title': post.title,
                'cat_selected': post.slug,
                }
     return render(request, 'main/index/post.html', context=context)
 
-
-def show_category(request, cat_id):
-    posts = Posts.objects.filter(cat_id=cat_id)
-    context = {'posts': posts,
-               'menu': menu,
-               'title': '!!!!!!21212',
-               'cat_selected': cat_id,
-               }
-    return render(request, 'main/index/main.html', context=context)
+# def show_category(request, cat_id):
+#     post = Posts.objects.filter(cat_id=cat_id)
+#     context = {'posts': post,
+#                'menu': menu,
+#                'title': '!!!!!!21212',
+#                'cat_selected': cat_id,
+#                }
+#     return render(request, 'main/index/main.html', context=context)

@@ -1,19 +1,22 @@
-{% extends 'main/index/main.html' %}
+{% extends 'main/index/base.html' %}
+
 {% load static%}
 {{ title }}
+{% block choice %}
+{% endblock %}
 
 {% block content %}
-<div class="all_content">
+
 <div class="up_post">
-    {% if posts.photo %}
-    <div class="up_post_photo"> <img src="{{ posts.photo.url }}"></div>
+    {% if post.photo %}
+    <div class="up_post_photo"><img src="{{ post.photo.url }}"></div>
      {% else %}
         <div class="photo"><img src="{% static 'images/2.jpeg' %}"></div>
     {% endif %}
     <div>
-<h1> {{posts.title}}</h1>
-{{ posts.content|linebreaks}}</div>
+<h1> {{post.title}}</h1>
+{{ post.content|linebreaks}}</div>
 
 </div>
-</div>
+
 {% endblock %}

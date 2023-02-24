@@ -37,7 +37,7 @@ class Category(models.Model):
     #
     def get_absolute_url(self):
         """Формирования динамических ссылок на посты"""
-        return reverse('category', kwargs={'cat_id': self.id})
+        return reverse('category', kwargs={'cat_slug': self.slug})
 
 #
 #

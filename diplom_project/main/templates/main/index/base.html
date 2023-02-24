@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="ru" xmlns="http://www.w3.org/1999/html">
 <head>
-
+{% load main_tags %}
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -29,14 +29,33 @@
 
 </div>
 {% endblock %}
+<div class="all_content">
+{% block choice %}
+{% get_categories as cats %}
+
+    <div class="choise">
+        {% for c in cats %}
+
+        {% if c.pk == cat_selected %}
+        <div class="work">
+            <li class="selected">{{c.name}}</li>
+        </div>
+        {% else %}
+        <div class="work">
+            <a href="{{ c.get_absolute_url }}">{{c.name}}</a>
+        </div>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    {% endblock %}
+
 
 
 {% block content %}
-
-
 {% endblock %}
 
-
+  </div>
 {% block footer %}
 
 {% endblock %}
