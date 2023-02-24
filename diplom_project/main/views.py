@@ -30,17 +30,15 @@ def index(request):
 
 def add_post(request):
     if request.method == 'POST':
-        form = AddPostForm(request.POST)
+        form = AddPostForm(request.POST, request.FILES)
         if form.is_valid():
-            try:
-                Posts.objects.create(**form.cleaned_data)
-                return redirect('home')
-            except:
-                form.add_error(None, 'Ошибка')
+            form.save()
+            return redirect('home')
+
     else:
         form = AddPostForm()
     context = {'menu': menu,
-               'title': 'Добавить обеление',
+               'title': '123обеление',
                'form': form}
     return render(request, 'main/index/addpage.html', context=context)
 

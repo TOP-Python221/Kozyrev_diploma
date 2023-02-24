@@ -10,7 +10,7 @@ class Posts(models.Model):
     slug = models.SlugField(max_length=100, unique=True, db_index=True)
     content = models.TextField(max_length=500)
     photo = models.ImageField(upload_to="photos/%Y/%m/%d")
-    salary = models.IntegerField(max_length=300)
+    salary = models.IntegerField(max_length=300, null=True)
     time_creat = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
     is_published = models.BooleanField(default=True)

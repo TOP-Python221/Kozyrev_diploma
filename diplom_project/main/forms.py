@@ -1,24 +1,21 @@
 from django.contrib.auth.models import User
 from django import forms
+from django.core.exceptions import ValidationError
+
 from .models import *
 
 
-class AddPostForm(forms.Form):
-    title = forms.CharField(max_length=300, label='Заголовок',
-                            widget=forms.TextInput(attrs={'class': 'form_input'}))
-    slug = forms.SlugField(max_length=300, label='URL-адрес',
-                           widget=forms.TextInput(attrs={'class': 'form_url'}))
-    content = forms.CharField(max_length=600, label='Контент',
-                              widget=forms.TextInput(attrs={'class': 'form_content'}))
-    is_published = forms.BooleanField(label='Публикация')
-    salary = forms.IntegerField(label='Зарплата')
-    cat = forms.ModelChoiceField(queryset=Category.objects.all(),
-                                 label='Категория',
-                                 empty_label='Категория не выбрана')
-
+class AddPostForm(forms.ModelForm):
     class Meta:
         model = Posts
-        fields = ['title', 'content', 'photo']
+        fields = ['title', 'slug', 'content', 'photo', 'is_published', 'salary', 'cat']
         widgets = {
-            'password': forms.PasswordInput(),
+            'title': forms.TextInput(attrs={'class': 'form_input'}),
+            'content': forms.Textarea(attrs={'class': 'form_content'}),
         }
+
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        if len(title) > 200:
+            raise ValidationError('Количество символом должно быть не больше 200')
+        return title
