@@ -14,7 +14,7 @@
 </head>
 <body>
 {% block header %}
-<div class="container text-center" id="header">
+<div class=" text-center" id="header">
     {% for m in menu%}
     {% if m.title == Поиск%}
     <div class="search">
@@ -23,14 +23,14 @@
     </div>
     {% else %}
     <div class="home" id="{{ m.url_name }}">
-        <a href="{% url m.url_name %}">{{ m.title }}</a>
+        <a  href="{% url m.url_name %}">{{ m.title }}</a>
     </div>
     {% endif %}
     {% endfor %}
 
 </div>
 {% endblock %}
-<div class="container text-center">
+<div class="all_content text-center">
     {% block choice %}
     <div class="choise">
         {% for c in cats %}
@@ -52,6 +52,14 @@
 
     {% block content %}
     {% endblock %}
+    <nav>
+    <ul>
+        {% for p in paginator.page_range %}
+        <a href="?page={{ p }}">{{ p }}</a>
+        {% endfor %}
+    </ul>
+
+    </nav>
 
 </div>
 {% block footer %}

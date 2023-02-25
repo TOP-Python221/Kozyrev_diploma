@@ -11,6 +11,7 @@ from .utils import *
 
 # Create your views here.
 class MainPost(DataMixin, ListView):
+    paginate_by = 4
     model = Posts
     template_name = 'main/index/main.html'
     context_object_name = 'posts'
@@ -22,6 +23,7 @@ class MainPost(DataMixin, ListView):
 
 
 class CategoryPost(DataMixin, ListView):
+    paginate_by = 4
     model = Posts
     template_name = 'main/index/main.html'
     context_object_name = 'posts'

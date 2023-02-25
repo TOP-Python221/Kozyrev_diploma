@@ -6,7 +6,7 @@
 
 #header {
     background: rgb(251, 246, 246);
-    height: 10vmax;
+    height: 7vmax;
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 300px 200px 150px;
@@ -15,23 +15,62 @@
 }
 
 .main_content {
+    height: 90%;
     display: grid;
-    grid-template-rows: auto;
-    grid-template-columns: 1fr 1fr 1fr;
-    margin: 20px;
-    row-gap: 25px;
+    grid-template-rows: 40% 40% 20%;
+    grid-template-columns: 50% 50%;
+    row-gap: 15px;
+    column-gap: 2px;
+}
+.post-content {
+    grid-area: B;
+
 }
 
 .posts {
+    height: 100%;
+    width: 100%;
     display: grid;
-    width: 98%;
     grid-gap: 2px;
     border: solid #9E9C9C 2px;
     box-shadow: 0 5px 5px #9da9b1;
     background: #F9F0DA;
     justify-content: center;
-    grid-template-columns: 100px auto;
-    grid-template-rows: min-content;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 40% 40% 19%;
+    grid-template-areas:
+    "A B"
+    "N B"
+    "C V";
+    text-decoration: none;
+}
+.photo {
+    grid-area: A;
+    justify-self: center;
+    height: 90%;
+    width: 90%;
+}
+.photo img {
+    border: solid #F9F0DA 2px;
+    margin: 5px;
+    height: 70px;
+    width: 70px;
+    box-sizing: content-box;
+    border-radius: 100px;
+}
+.post-name {
+    grid-area: N;
+    justify-self: center;
+    align-self: center;
+}
+.post-cat {
+    grid-area: C;
+}
+.post-date {
+    grid-area: V;
+}
+
+.posts a {
     text-decoration: none;
 }
 
@@ -87,16 +126,6 @@
     justify-self: end;
 }
 
-.photo img {
-    border: solid #F9F0DA 2px;
-    margin: 5px;
-    height: 75px;
-    width: 75px;
-    box-sizing: content-box;
-    border-radius: 50px;
-
-}
-
 .search {
     background: #A3D0C3;
     width: 100%;
@@ -137,17 +166,16 @@
 
 
 .home {
-    height: 30px;
-    width: 50%;
+    width: 70%;
     margin: 5px;
     border: 2px solid #7BA7AB;
     box-shadow: 0 5px 5px #9da9b1;
     background: #A3D0C3;
     border-radius: 5%;
-    display: grid;
+    display: inline;
     justify-self: center;
     align-self: center;
-    font-size: 90%;
+    white-space: nowrap;
 
 }
 
@@ -174,8 +202,8 @@
     margin-top: 25px;
     margin-bottom: 15px;
     display: grid;
-    grid-auto-rows: min-content;
     grid-gap: 25px;
+    grid-template-rows: 10% 80% 10%;
 
 }
 
