@@ -1,7 +1,6 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
-from django.contrib.auth.models import User
 
 
 # Create your models here.
@@ -28,6 +27,8 @@ class Posts(models.Model):
 
     class Meta:
         ordering = ['-time_creat', 'title']
+        # КОММЕНТАРИЙ: не будет транслироваться в SQL код
+        managed = False
 
 
 class Category(models.Model):
@@ -40,3 +41,25 @@ class Category(models.Model):
     def get_absolute_url(self):
         """Формирования динамических ссылок на посты"""
         return reverse('category', kwargs={'cat_slug': self.slug})
+
+
+# ИСПОЛЬЗОВАТЬ: пример привязки сообщений к пользователям
+
+# class User(models.Model):
+#     name = models.CharField(max_length=15)
+
+# class Message(models.Model):
+#     text = models.TextField()
+#     user_from = models.ForeignKey(User, models.CASCADE)
+#     user_to = models.ForeignKey(User, models.CASCADE)
+
+# u1 = User()
+
+# все сообщения пользователя: отправленные и полученные
+# u1.message_set_all()
+
+# отправленные сообщения пользователя
+# u1.message_set.filter(user_from_id=u1.id)
+
+# полученные сообщения пользователя
+# u1.message_set.filter(user_to_id=u1.id)
