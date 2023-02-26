@@ -34,10 +34,12 @@ class CategoryPost(DataMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_using_context(title='Категория - ' + str(context['posts'][0].cat),
-                                       cat_selected=context['posts'][0].cat_id
-                                       )
-        return dict(list(context.items()) + list(c_def.items()))
+        c_def = self.get_using_context(
+            title='Категория - ' + str(context['posts'][0].cat),
+            cat_selected=context['posts'][0].cat_id
+        )
+        # ИСПОЛЬЗОВАТЬ: словари объединяются с помощью оператора |
+        return context | c_def
 
     def get_queryset(self):
         return Posts.objects.filter(cat__slug=self.kwargs['cat_slug'])
@@ -53,6 +55,7 @@ class ShowPost(DataMixin, DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = self.get_using_context(title=context['post'])
+        # ИСПРАВИТЬ здесь и далее: объединить словари
         return dict(list(context.items()) + list(c_def.items()))
 
 

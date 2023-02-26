@@ -10,6 +10,9 @@ class Posts(models.Model):
     slug = models.SlugField(max_length=100, unique=True, db_index=True)
     content = models.TextField(max_length=500)
     photo = models.ImageField(upload_to="photos/%Y/%m/%d")
+    # ИСПРАВИТЬ: не заметил, чтобы вы как-то по-своему использовали параметр max_length для поля salary, так что стоит последовать совету фреймворка
+    #  WARNINGS: main.Posts.salary: (fields.W122) 'max_length' is ignored when used with IntegerField.
+    #  HINT: Remove 'max_length' from field
     salary = models.IntegerField(max_length=300, null=True)
     time_creat = models.DateTimeField(auto_now_add=True)
     time_update = models.DateTimeField(auto_now=True)
