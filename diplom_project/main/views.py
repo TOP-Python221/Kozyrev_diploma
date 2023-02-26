@@ -1,5 +1,8 @@
+from django.contrib.auth import logout, login
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponse
+from django.contrib.auth.views import LoginView
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
@@ -11,7 +14,7 @@ from .utils import *
 
 # Create your views here.
 class MainPost(DataMixin, ListView):
-    paginate_by = 4
+    """Представление главной страницы и всех постов"""
     model = Posts
     template_name = 'main/index/main.html'
     context_object_name = 'posts'
@@ -23,7 +26,7 @@ class MainPost(DataMixin, ListView):
 
 
 class CategoryPost(DataMixin, ListView):
-    paginate_by = 4
+    """Представление постов по категориям"""
     model = Posts
     template_name = 'main/index/main.html'
     context_object_name = 'posts'
@@ -41,6 +44,7 @@ class CategoryPost(DataMixin, ListView):
 
 
 class ShowPost(DataMixin, DetailView):
+    """Представление выбранных постов"""
     model = Posts
     template_name = 'main/index/post.html'
     slug_url_kwarg = 'post_slug'
@@ -53,9 +57,11 @@ class ShowPost(DataMixin, DetailView):
 
 
 class Addpage(LoginRequiredMixin, DataMixin, CreateView):
+    """Представление добавления постов"""
     form_class = AddPostForm
     template_name = 'main/index/addpage.html'
     success_url = reverse_lazy('home')
+    login_url = reverse_lazy('log')
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -63,19 +69,42 @@ class Addpage(LoginRequiredMixin, DataMixin, CreateView):
         return dict(list(context.items()) + list(c_def.items()))
 
 
+class RegisterUsers(DataMixin, CreateView):
+    form_class = RegisterUserForm
+    template_name = 'main/index/register.html'
+    success_url = reverse_lazy('home')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_using_context(title='Регистрация')
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('home')
+
+
+class LoginUser(DataMixin, LoginView):
+    form_class = AuthenticationForm
+    template_name = 'main/index/sing_up.html'
+    success_url = reverse_lazy('home')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_using_context(title='Вход')
+        return dict(list(context.items()) + list(c_def.items()))
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('log')
+
+
 def help_me(request):
     context = {'menu': menu,
                'title': 'Помощь'}
-    return render(request, 'main/index/help.html', context=context)
-
-
-def sing_up(request):
-    context = {'menu': menu,
-               'title': 'Вход'}
-    return render(request, 'main/index/help.html', context=context)
-
-
-def register_users(request):
-    context = {'menu': menu,
-               'title': 'Регистрация'}
     return render(request, 'main/index/help.html', context=context)

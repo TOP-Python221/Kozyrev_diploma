@@ -5,33 +5,28 @@
 {% block content %}
 <div class="main_content">
     {% for p in posts %}
-
-
-        <a class="posts" href="{{ p.get_absolute_url }}">
+    <a class="posts" href="{{ p.get_absolute_url }}">
         {% if p.photo %}
         <div class="photo"><img src="{{ p.photo.url }}"></div>
         {% else %}
         <div class="photo"><img src="{% static 'images/2.jpeg' %}"></div>
         {% endif %}
-            <div class="post-content">
+        <div class="post-content">
             {% autoescape on %}
             {{ p.content|linebreaks|truncatewords:5 }}
             {% endautoescape %}
-                </div>
-            <div class="post-name">
-                {{ p.title }}}
-            </div>
-
-            <div class="post-cat"><p>{{p.cat}}</p></div>
-            <div class="post-date"><p> {{ p.time_update|date:"d-m-Y H:m:s"}} </p>
-
-
+        </div>
+        <div class="post-name">
+            {{ p.title }}}
         </div>
 
+        <div class="post-cat"><p>{{p.cat}}</p></div>
+        <div class="post-date"><p> {{ p.time_update|date:"d-m-Y H:m:s"}} </p>
 
-            </a>
-
-
+        </div>
+    </a>
     {% endfor %}
 </div>
+
 {% endblock %}
+

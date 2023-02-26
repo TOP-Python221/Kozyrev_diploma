@@ -17,7 +17,7 @@
 .main_content {
     height: 90%;
     display: grid;
-    grid-template-rows: 40% 40% 20%;
+    grid-template-rows: 50% 50% ;
     grid-template-columns: 50% 50%;
     row-gap: 15px;
     column-gap: 2px;
@@ -200,7 +200,6 @@
     box-shadow: 0 5px 5px #9da9b1;
     margin: auto;
     margin-top: 25px;
-    margin-bottom: 15px;
     display: grid;
     grid-gap: 25px;
     grid-template-rows: 10% 80% 10%;
