@@ -37,7 +37,7 @@
         <a href="{% url 'register' %}">Регистрация</a>
     </div>
     <div class="home">
-        <a href="{% url 'log' %}">Вход</a>
+        <a href="{% url 'login' %}">Вход</a>
     </div>
     {% endif %}
 </div>
@@ -63,14 +63,14 @@
     {% endblock %}
     {% block content %}
     {% endblock %}
-    <div>
-        <ul>
-            {% for p in paginator.page_range %}
-            <a href="?page={{ p }}">{{ p }}</a>
-            {% endfor %}
-        </ul>
+<!--    <div>-->
+<!--        <ul>-->
+<!--            {% for p in paginator.page_range %}-->
+<!--            <a href="?page={{ p }}">{{ p }}</a>-->
+<!--            {% endfor %}-->
+<!--        </ul>-->
 
-    </div>
+<!--    </div>-->
 
 
 </div>
