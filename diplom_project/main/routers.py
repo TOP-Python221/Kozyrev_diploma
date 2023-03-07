@@ -1,5 +1,5 @@
 class AuthRouter:
-    app_labels = {'auth', 'contenttypes'}
+    app_labels = {'users', 'contenttypes'}
 
     def db_for_read(self, model, **hits):
         if model._meta.app_label in self.app_labels:

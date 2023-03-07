@@ -85,7 +85,7 @@ DATABASES = {
 }
 
 DATABASE_ROUTERS = {'main.routers.AuthRouter'}
-
+AUTH_USER_MODEL = 'users.UserMain'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

@@ -1,0 +1,17 @@
+{% extends 'main/index/base.html' %}
+
+{{ title }}
+{% block choice%}
+{% endblock %}
+<div>
+{% block all_content %}
+
+    {% for f in form %}
+    <div>
+        <label class="form-label" for="{{ id_for_label}}">{{ f.label }}</label> <div>{{ f }}</div>
+        </div>
+
+{% endfor %}
+
+{% endblock %}
+ </div>

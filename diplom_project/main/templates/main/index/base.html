@@ -29,7 +29,9 @@
     {% endif %}
     {% endfor %}
     {% if request.user.is_authenticated%}
-    <div class="home"> {{ user.username}} |
+
+    <div class="home">
+        <a href="{% url 'profile_user' %}">{{ user.slug }}</a> |
         <a href="{% url 'logout' %}">Выход</a>
     </div>
     {% else %}
@@ -43,6 +45,8 @@
 </div>
 
 {% endblock %}
+
+{% block all_content %}
 <div class="all_content text-center">
     {% block choice %}
     <div class="choise">
@@ -61,8 +65,13 @@
     </div>
 
     {% endblock %}
+
     {% block content %}
+
     {% endblock %}
+    {% endblock %}
+    </div>
+
 <!--    <div>-->
 <!--        <ul>-->
 <!--            {% for p in paginator.page_range %}-->
@@ -73,7 +82,8 @@
 <!--    </div>-->
 
 
-</div>
+
+
 {% block footer %}
 
 {% endblock %}
