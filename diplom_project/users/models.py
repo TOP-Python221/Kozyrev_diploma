@@ -20,4 +20,4 @@ class UserMain(AbstractUser):
 
     def get_absolute_url(self):
         """Формирования динамических ссылок на посты"""
-        return reverse('user', kwargs={'slug': self.slug})
+        return reverse('profile_user', kwargs={'slug': self.slug})

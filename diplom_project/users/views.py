@@ -55,9 +55,11 @@ class Profile_User(LoginRequiredMixin, DataMixin, CreateView):
     login_url = reverse_lazy('login')
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        # user_profile = UserMain.objects.get(user='user3')
+
         context = super().get_context_data(**kwargs)
-        c_def = self.get_using_context(title='Профиль')
+        user_profile = UserMain.objects.get(slug=self.request.user)
+        c_def = self.get_using_context(title='Профиль',
+                                       user=user_profile)
         return context | c_def
 
 # class UpDateProfileView(DataMixin, ListView):
