@@ -1,3 +1,5 @@
+from django.contrib.auth import login
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render
@@ -6,7 +8,6 @@ from django.views.generic import ListView, DetailView, CreateView
 
 from .forms import *
 from .utils import *
-from users.models import *
 
 
 # Create your views here.
@@ -62,9 +63,18 @@ class Addpage(LoginRequiredMixin, DataMixin, CreateView):
     login_url = reverse_lazy('login')
 
     def get_context_data(self, *, object_list=None, **kwargs):
+        # user = User.objects.get(id=self.request.user.id)
         context = super().get_context_data(**kwargs)
-        c_def = self.get_using_context(title='Добавить объявление')
+        c_def = self.get_using_context(title='Добавить объявление',
+                                       )
         return context | c_def
+
+    def form_valid(self, form):
+        posts = form.save(commit=False)
+        print('ttttt')
+        posts.user = User.objects.get(id=self.request.user.id)
+        posts.save()
+        return redirect('home')
 
 
 def help_me(request):
@@ -72,3 +82,52 @@ def help_me(request):
                'title': 'Помощь'
                }
     return render(request, 'main/index/help.html', context=context)
+
+
+class RegisterUser(DataMixin, CreateView):
+    form_class = RegisterUserForm
+    template_name = 'main/index/register.html'
+    success_url = reverse_lazy('home')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_using_context(title='Регистрация')
+        return context | c_def
+
+    def form_valid(self, form):
+        user = form.save()
+        login(self.request, user)
+        return redirect('home')
+
+
+class LoginUser(DataMixin, LoginView):
+    form_class = AuthenticationForm
+    template_name = 'main/index/login.html'
+    success_url = reverse_lazy('home')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_using_context(title='Вход')
+        return context | c_def
+
+    def get_success_url(self):
+        return reverse_lazy('home')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('login')
+
+
+class Profile_User(LoginRequiredMixin, DataMixin, CreateView):
+    form_class = UpDateProfile
+    template_name = 'main/index//profile.html'
+    success_url = reverse_lazy('home')
+    login_url = reverse_lazy('login')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # user_profile = User.objects.get(pk=self.request.user)
+        c_def = self.get_using_context(title='Профиль',
+                                       )
+        return context | c_def

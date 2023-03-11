@@ -31,7 +31,7 @@
     {% if request.user.is_authenticated%}
 
     <div class="home">
-        <a href="{{ user.get_absolute_url }}">{{ user.slug }}</a> |
+        <a href="{% url 'profile_user' %}">{{ user.username }}</a> |
         <a href="{% url 'logout' %}">Выход</a>
     </div>
     {% else %}
