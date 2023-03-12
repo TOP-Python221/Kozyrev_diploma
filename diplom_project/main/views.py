@@ -2,7 +2,7 @@ from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 
@@ -19,7 +19,9 @@ class MainPost(DataMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_using_context(title='Главная страница')
+        c_def = self.get_using_context(title='Главная страница',
+
+                                       )
         return context | c_def
 
 
@@ -63,7 +65,6 @@ class Addpage(LoginRequiredMixin, DataMixin, CreateView):
     login_url = reverse_lazy('login')
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        # user = User.objects.get(id=self.request.user.id)
         context = super().get_context_data(**kwargs)
         c_def = self.get_using_context(title='Добавить объявление',
                                        )
@@ -71,8 +72,7 @@ class Addpage(LoginRequiredMixin, DataMixin, CreateView):
 
     def form_valid(self, form):
         posts = form.save(commit=False)
-        print('ttttt')
-        posts.user = User.objects.get(id=self.request.user.id)
+        posts.user = Profile.objects.get(id=self.request.user.id)
         posts.save()
         return redirect('home')
 
@@ -119,15 +119,14 @@ def logout_user(request):
     return redirect('login')
 
 
-class Profile_User(LoginRequiredMixin, DataMixin, CreateView):
-    form_class = UpDateProfile
+class Profile_User(DataMixin, DetailView):
+    model = Profile
     template_name = 'main/index//profile.html'
-    success_url = reverse_lazy('home')
-    login_url = reverse_lazy('login')
+    slug_url_kwarg = 'slug'
+    context_object_name = 'profile'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        # user_profile = User.objects.get(pk=self.request.user)
-        c_def = self.get_using_context(title='Профиль',
+        c_def = self.get_using_context(title='Профиль'
                                        )
         return context | c_def

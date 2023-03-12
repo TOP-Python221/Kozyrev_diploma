@@ -27,11 +27,12 @@
         <a href="{% url m.url_name %}">{{ m.title }}</a>
     </div>
     {% endif %}
+
     {% endfor %}
     {% if request.user.is_authenticated%}
 
     <div class="home">
-        <a href="{% url 'profile_user' %}">{{ user.username }}</a> |
+        <a href="{% url 'profile_user' request.user.profile.slug %}">{{ user.username }}</a> |
         <a href="{% url 'logout' %}">Выход</a>
     </div>
     {% else %}
@@ -70,7 +71,7 @@
 
     {% endblock %}
     {% endblock %}
-    </div>
+</div>
 
 <!--    <div>-->
 <!--        <ul>-->
@@ -80,8 +81,6 @@
 <!--        </ul>-->
 
 <!--    </div>-->
-
-
 
 
 {% block footer %}

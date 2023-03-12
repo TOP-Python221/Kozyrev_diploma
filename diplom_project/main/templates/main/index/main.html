@@ -5,7 +5,7 @@
 {% block content %}
 <div class="main_content">
     {% for p in posts %}
-    <a class="posts" href="{{ p.get_absolute_url }}">
+    <div class="posts">
         {% if p.photo %}
         <div class="photo"><img src="{{ p.photo.url }}"></div>
         {% else %}
@@ -17,14 +17,14 @@
             {% endautoescape %}
         </div>
         <div class="post-name">
-            {{ p.title }}}
+            <a href="">{{ profile.profile }}</a>
         </div>
 
         <div class="post-cat"><p>{{p.cat}}</p></div>
         <div class="post-date"><p> {{ p.time_update|date:"d-m-Y H:m:s"}} </p>
 
         </div>
-    </a>
+    </div>
     {% endfor %}
 </div>
 
