@@ -19,9 +19,7 @@ class MainPost(DataMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_using_context(title='Главная страница',
-
-                                       )
+        c_def = self.get_using_context(title='Главная страница')
         return context | c_def
 
 
@@ -66,8 +64,7 @@ class Addpage(LoginRequiredMixin, DataMixin, CreateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_using_context(title='Добавить объявление',
-                                       )
+        c_def = self.get_using_context(title='Добавить объявление')
         return context | c_def
 
     def form_valid(self, form):
@@ -78,9 +75,10 @@ class Addpage(LoginRequiredMixin, DataMixin, CreateView):
 
 
 def help_me(request):
-    context = {'menu': menu,
-               'title': 'Помощь'
-               }
+    context = {
+        'menu': menu,
+        'title': 'Помощь'
+    }
     return render(request, 'main/index/help.html', context=context)
 
 
@@ -120,13 +118,13 @@ def logout_user(request):
 
 
 class Profile_User(DataMixin, DetailView):
+    """Представление профилей пользователей"""
     model = Profile
-    template_name = 'main/index//profile.html'
+    template_name = 'main/index/profile.html'
     slug_url_kwarg = 'slug'
     context_object_name = 'profile'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_using_context(title='Профиль'
-                                       )
+        c_def = self.get_using_context(title='Профиль')
         return context | c_def

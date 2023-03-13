@@ -55,6 +55,9 @@ class Profile(models.Model):
         """Формирования динамических ссылок на посты"""
         return reverse('user', kwargs={'slug': self.slug})
 
+    def __str__(self):
+        return self.user.username
+
 
 class Posts(models.Model):
     title = models.CharField(max_length=50)

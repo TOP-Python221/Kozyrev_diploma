@@ -17,7 +17,7 @@
             {% endautoescape %}
         </div>
         <div class="post-name">
-            <a href="">{{ profile.profile }}</a>
+            <a href="{% url 'profile_user' slug=p.user %}">{{ p.user }}</a>
         </div>
 
         <div class="post-cat"><p>{{p.cat}}</p></div>
