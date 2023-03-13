@@ -34,8 +34,10 @@ from pytils.translit import slugify
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.CharField(max_length=500)
-    birthday = models.DateTimeField(null=True, blank=True)
+    bio = models.TextField(max_length=500)
+    avatar = models.ImageField(default='2.jpeg', upload_to='profile_images')
+    email = models.EmailField(blank=True)
+    birthday = models.DateField(null=True, blank=True)
     slug = models.SlugField(unique=True, null=True)
 
     def save(self, *args, **kwargs):

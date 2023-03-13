@@ -265,3 +265,10 @@
     width: 100%;
     background: rgb(15, 15, 242);
 }
+
+.profile {
+    display: grid;
+    justify-content: center;
+    margin-top: 15px;
+
+}

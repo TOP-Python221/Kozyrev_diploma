@@ -128,3 +128,7 @@ class Profile_User(DataMixin, DetailView):
         context = super().get_context_data(**kwargs)
         c_def = self.get_using_context(title='Профиль')
         return context | c_def
+
+
+def update_profile(request):
+    return render(request, 'main/index/update_profile.html')
