@@ -1,10 +1,11 @@
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from .forms import *
 from .utils import *
@@ -130,5 +131,29 @@ class Profile_User(DataMixin, DetailView):
         return context | c_def
 
 
-def update_profile(request):
-    return render(request, 'main/index/update_profile.html')
+class UpDateProfileView(DataMixin, UpdateView):
+    """Представление для редактирования профиля"""
+    model = Profile
+    form_class = UpDateProfileForm
+    template_name = 'main/index/update_profile.html'
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_using_context(title='Редактирование профиля')
+        return context | c_def
+
+    # def form_valid(self, form):
+    #     context = self.get_context_data()
+    #     with transaction.atomic():
+    #         if form.is_valid():
+    #             form.save()
+    #         else:
+    #             return self.render_to_response(context)
+    #     return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse_lazy('profile_user', kwargs={'slug': self.object.slug})
+

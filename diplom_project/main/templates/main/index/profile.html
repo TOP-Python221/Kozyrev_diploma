@@ -5,7 +5,7 @@
 {% endblock %}
 <div>
     {% block all_content %}
-
+<div class="profile-user">
     <div class="profile">
         {% if profile.avatar %}
         <div class="up_post_photo">
@@ -22,12 +22,12 @@
         <h1>Почта - {{ profile.user.email }}</h1><br>
         <h2>{{ user.profile.bio }}</h2>
         {% if request.user.id == profile.user.id %}
-            <a href="{% url 'update_profile' %}">Настройки</a>
+            <a href="{% url 'update_profile' slug=request.user %}">Настройки</a>
         {% else %}
         <div class="home"><a href="#">Написать сообщение</a></div>
         {% endif %}
     </div>
-
+</div>
 
     {% endblock %}
 </div>

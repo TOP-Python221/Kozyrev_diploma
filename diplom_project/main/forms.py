@@ -25,12 +25,10 @@ class RegisterUserForm(UserCreationForm):
         fields = ['username', 'password1', 'password2']
 
 
-class ShowProfile(forms.ModelForm):
-    username = forms.CharField(label='Username', widget=forms.TextInput())
-    first_name = forms.CharField(label='Имя')
-    last_name = forms.CharField(label='Фамилия')
-    email = forms.EmailField(label='Почта')
+class UpDateProfileForm(forms.ModelForm):
+    avatar = forms.ImageField(label='Аватар')
 
     class Meta:
         model = Profile
-        fields = ['username', 'first_name', 'last_name', 'email', ]
+        fields = ['avatar', 'bio']
+

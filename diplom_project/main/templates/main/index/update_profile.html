@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'main/index/base.html' %}
+{% load static %}
+{{ title }}
+{% block choice%}
+{% endblock %}
+<div>
+    {% block all_content %}
+    <h2>Редактирование профиля</h2>
+<form class="add_page" action="{% url 'update_profile' slug=request.user %}" method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% for f in form %}
+    <div>{{f}}</div>
+    {% endfor %}
+    <button type="submit" class="btn btn-dark">Подтвердить изменение профиля</button>
 
-</body>
-</html>
+</form>
+    {% endblock %}
+</div>

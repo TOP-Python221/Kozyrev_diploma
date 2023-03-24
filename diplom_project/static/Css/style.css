@@ -17,11 +17,12 @@
 .main_content {
     height: 90%;
     display: grid;
-    grid-template-rows: 50% 50% ;
+    grid-template-rows: 50% 50%;
     grid-template-columns: 50% 50%;
     row-gap: 15px;
     column-gap: 2px;
 }
+
 .post-content {
     grid-area: B;
 
@@ -44,12 +45,14 @@
     "C V";
     text-decoration: none;
 }
+
 .photo {
     grid-area: A;
     justify-self: center;
     height: 90%;
     width: 90%;
 }
+
 .photo img {
     border: solid #F9F0DA 2px;
     margin: 5px;
@@ -58,14 +61,17 @@
     box-sizing: content-box;
     border-radius: 100px;
 }
+
 .post-name {
     grid-area: N;
     justify-self: center;
     align-self: center;
 }
+
 .post-cat {
     grid-area: C;
 }
+
 .post-date {
     grid-area: V;
 }
@@ -104,7 +110,6 @@
     grid-template-rows: auto;
     grid-template-columns: auto auto;
     height: 50%;
-
 }
 
 .up_post_photo {
@@ -113,7 +118,6 @@
 
 .up_post_photo img {
     box-sizing: content-box;
-
     height: 125px;
     width: 125px;
 }
@@ -186,7 +190,6 @@
 .home a {
     width: 100%;
     text-align: center;
-
     color: black;
     text-decoration: none;
     justify-self: center;
@@ -247,15 +250,18 @@
     justify-self: center;
     row-gap: 15px;
 }
+
 .form-post {
     display: grid;
     grid-template-columns: 30% 70%;
 
 }
+
 .form_content {
 
     height: 150px;
 }
+
 .form_url {
     width: 140px;
 }
@@ -268,7 +274,16 @@
 
 .profile {
     display: grid;
+
+    box-shadow: 2px 5px 5px #6FC6FF;
+    border: 3px solid #9E9C9C;
+    background: #9da9b1;
+}
+
+.profile-user {
+    margin-top: 25px;
+    display: grid;
     justify-content: center;
-    margin-top: 15px;
+    justify-items: center;
 
 }
