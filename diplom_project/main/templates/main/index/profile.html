@@ -24,7 +24,7 @@
         {% if request.user.id == profile.user.id %}
             <a href="{% url 'update_profile' slug=request.user %}">Настройки</a>
         {% else %}
-        <div class="home"><a href="#">Написать сообщение</a></div>
+        <div class="home"><a href="{% url 'chat' %}">Написать сообщение</a></div>
         {% endif %}
     </div>
 </div>

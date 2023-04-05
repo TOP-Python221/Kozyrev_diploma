@@ -75,14 +75,6 @@ class Addpage(LoginRequiredMixin, DataMixin, CreateView):
         return redirect('home')
 
 
-def help_me(request):
-    context = {
-        'menu': menu,
-        'title': 'Помощь'
-    }
-    return render(request, 'main/index/help.html', context=context)
-
-
 class RegisterUser(DataMixin, CreateView):
     form_class = RegisterUserForm
     template_name = 'main/index/register.html'
@@ -157,3 +149,34 @@ class UpDateProfileView(DataMixin, UpdateView):
     def get_success_url(self):
         return reverse_lazy('profile_user', kwargs={'slug': self.object.slug})
 
+
+class AllChat(DataMixin, ListView):
+    model = Message
+    template_name = 'main/index/message.html'
+    context_object_name = 'Chats'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_using_context(title='Сообщения')
+        return context | c_def
+
+    def get_queryset(self):
+        message = Message.objects.filter(recipient_id=self.request.user.id).order_by('-created')[:1]
+        from_message = Message.objects.filter(sender_id=self.request.user.id).order_by('-created')[:1]
+        return message | from_message
+
+
+class Chat(DataMixin, ListView):
+    model = Message
+    template_name = 'main/index/Chat.html'
+    context_object_name = 'dialog'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        c_def = self.get_using_context(title='Сообщения')
+        return context | c_def
+
+    def get_queryset(self):
+        message = Message.objects.filter(recipient_id=self.request.user.id)
+        from_message = Message.objects.filter(sender_id=self.request.user.id)
+        return message | from_message

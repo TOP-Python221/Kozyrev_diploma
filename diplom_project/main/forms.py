@@ -32,3 +32,9 @@ class UpDateProfileForm(forms.ModelForm):
         model = Profile
         fields = ['avatar', 'bio']
 
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['message', 'created']
+

@@ -29,13 +29,15 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'main.apps.MainConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main.apps.MainConfig',
+
 ]
 
 MIDDLEWARE = [
@@ -68,7 +70,6 @@ TEMPLATES = [
 ]
 
 ASGI_APPLICATION = 'core.asgi.application'
-
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
@@ -82,6 +83,11 @@ DATABASES = {
     #     'NAME': BASE_DIR / 'db.sqlite3_users',
     # }
 }
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': "channels.layers.InMemoryChannelLayer"
+        }
+    }
 
 # DATABASE_ROUTERS = {'main.routers.AuthRouter'}
 # AUTH_USER_MODEL = 'main.UserMain'

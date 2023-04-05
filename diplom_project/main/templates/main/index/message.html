@@ -1,0 +1,23 @@
+{% extends 'main/index/base.html' %}
+
+{{ title }}
+
+{% block all_content %}
+{% if Chats == 0 %}
+<div>rgrgr</div>
+{% endif %}
+{% for c in Chats %}
+{% if c.is_read %}
+<a href="#">
+    <div id="chat_read" class="chat">{{ c.sender }} {{ c.message }} {{ c.created }}</div>
+</a>
+{% else %}
+<a href="#">
+    <div id="chat_not_read" class="chat">{{ c.sender }} {{ c.message }} {{ c.created }}</div>
+</a>
+
+{% endif %}
+
+{% endfor %}
+{% endblock %}
+

@@ -2,7 +2,7 @@ from .models import *
 
 menu = [{'title': 'Главная', 'url_name': 'home'},
         {'title': 'Добавить объявление', 'url_name': 'add_post'},
-        {'title': 'Помощь', 'url_name': 'help'},
+        {'title': 'Сообщения', 'url_name': 'message'},
         {'tile': 'Поиск', 'url_name': 'search'},
         ]
 

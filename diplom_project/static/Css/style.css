@@ -285,5 +285,10 @@
     display: grid;
     justify-content: center;
     justify-items: center;
-
+}
+#chat_not_read {
+    background: #9da9b1;
+}
+.chat {
+    margin-top: 15px;
 }

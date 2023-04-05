@@ -1,0 +1,12 @@
+{% extends 'main/index/base.html' %}
+
+{{ title }}
+
+{% block content%}
+
+{% endblock%}
+{% block all_content %}
+{% for d in dialog %}
+<div>{{ d.sender }} {{ d.message }} {{ d.created }}</div>
+{%  endfor %}
+{% endblock %}

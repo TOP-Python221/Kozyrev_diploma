@@ -102,6 +102,14 @@ class Category(models.Model):
         """Формирования динамических ссылок на посты"""
         return reverse('category', kwargs={'cat_slug': self.slug})
 
+
+class Message(models.Model):
+    sender = models.ForeignKey(User, models.SET_NULL, null=True, blank=True)
+    recipient = models.ForeignKey(User, models.SET_NULL, null=True, blank=True, related_name="messages")
+    message = models.TextField(max_length=500)
+    is_read = models.BooleanField(default=False, null=True)
+    created = models.DateTimeField(default=timezone.now)
+
 # ИСПОЛЬЗОВАТЬ: пример привязки сообщений к пользователям
 
 # class User(models.Model):
