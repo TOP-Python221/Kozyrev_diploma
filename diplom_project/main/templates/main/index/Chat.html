@@ -9,4 +9,9 @@
 {% for d in dialog %}
 <div>{{ d.sender }} {{ d.message }} {{ d.created }}</div>
 {%  endfor %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form.message }}
+    <button type="submit">Отправить</button>
+</form>
 {% endblock %}

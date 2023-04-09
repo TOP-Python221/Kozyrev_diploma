@@ -12,6 +12,6 @@ urlpatterns = [
     path('register', RegisterUser.as_view(), name='register'),
     path('profile_user/<slug:slug>/', Profile_User.as_view(), name='profile_user'),
     path('setings/<slug:slug>/', UpDateProfileView.as_view(), name='update_profile'),
-    path('dialog', Chat.as_view(), name='chat')
+    path('dialog/<slug:slug>/', Chat.as_view(), name='chat')
 
 ]

@@ -34,7 +34,8 @@ class UpDateProfileForm(forms.ModelForm):
 
 
 class MessageForm(forms.ModelForm):
+    message = forms.CharField(widget=forms.Textarea(attrs={'class': 'send_msg', 'rows':3}))
+
     class Meta:
         model = Message
-        fields = ['message', 'created']
-
+        fields = ['message', ]

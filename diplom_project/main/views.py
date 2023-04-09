@@ -166,15 +166,34 @@ class AllChat(DataMixin, ListView):
         return message | from_message
 
 
-class Chat(DataMixin, ListView):
+class Chat(DataMixin, CreateView, ListView):
     model = Message
     template_name = 'main/index/Chat.html'
     context_object_name = 'dialog'
+    form_class = MessageForm
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_using_context(title='Сообщения')
+        c_def = self.get_using_context(title='Сообщения',
+                                       form=self.form_class,
+                                       profile=Profile.objects.get(slug=self.kwargs['slug'])
+                                       )
         return context | c_def
+
+    def form_valid(self, form):
+        form = MessageForm
+        user = self.request.user.profile
+        recipient = Profile.objects.get(slug=self.kwargs['slug'])
+
+        if self.request.method == "POST":
+            form = MessageForm(self.request.POST)
+            if form.is_valid():
+                chat_msg = form.save(commit=False)
+                chat_msg.sender = user
+                chat_msg.recipient = recipient
+                chat_msg.save()
+                return redirect('chat', recipient.slug)
+        return form
 
     def get_queryset(self):
         message = Message.objects.filter(recipient_id=self.request.user.id)

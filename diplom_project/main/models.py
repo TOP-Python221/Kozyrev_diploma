@@ -104,11 +104,14 @@ class Category(models.Model):
 
 
 class Message(models.Model):
-    sender = models.ForeignKey(User, models.SET_NULL, null=True, blank=True)
-    recipient = models.ForeignKey(User, models.SET_NULL, null=True, blank=True, related_name="messages")
+    sender = models.ForeignKey(Profile, models.SET_NULL, null=True, blank=True)
+    recipient = models.ForeignKey(Profile, models.SET_NULL, null=True, blank=True, related_name="messages")
     message = models.TextField(max_length=500)
     is_read = models.BooleanField(default=False, null=True)
     created = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.message
 
 # ИСПОЛЬЗОВАТЬ: пример привязки сообщений к пользователям
 
