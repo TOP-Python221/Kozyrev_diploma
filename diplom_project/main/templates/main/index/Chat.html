@@ -6,9 +6,10 @@
 
 {% endblock%}
 {% block all_content %}
-{% for d in dialog %}
+{% for d in msg %}
 <div>{{ d.sender }} {{ d.message }} {{ d.created }}</div>
 {%  endfor %}
+
 <form method="POST">
     {% csrf_token %}
     {{ form.message }}

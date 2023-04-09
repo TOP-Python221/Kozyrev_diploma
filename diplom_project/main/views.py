@@ -176,7 +176,8 @@ class Chat(DataMixin, CreateView, ListView):
         context = super().get_context_data(**kwargs)
         c_def = self.get_using_context(title='Сообщения',
                                        form=self.form_class,
-                                       profile=Profile.objects.get(slug=self.kwargs['slug'])
+                                       msg=Message.objects.all()
+
                                        )
         return context | c_def
 
@@ -195,7 +196,3 @@ class Chat(DataMixin, CreateView, ListView):
                 return redirect('chat', recipient.slug)
         return form
 
-    def get_queryset(self):
-        message = Message.objects.filter(recipient_id=self.request.user.id)
-        from_message = Message.objects.filter(sender_id=self.request.user.id)
-        return message | from_message
