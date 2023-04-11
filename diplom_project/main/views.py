@@ -1,8 +1,10 @@
+import json
+
 from django.contrib.auth import login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db import transaction
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
@@ -176,10 +178,22 @@ class Chat(DataMixin, CreateView, ListView):
         context = super().get_context_data(**kwargs)
         c_def = self.get_using_context(title='Сообщения',
                                        form=self.form_class,
-                                       msg=Message.objects.all()
-
+                                       msg=self.get_queryset,
+                                       profile=Profile.objects.get(slug=self.kwargs['slug'])
                                        )
         return context | c_def
+
+    def get_queryset(self):
+        sender_msg = self.request.user.profile
+        recipient_msg = Profile.objects.get(slug=self.kwargs['slug'])
+        all_msg = Message.objects.all()
+        from_to = []
+        for m in all_msg:
+            if m.sender == sender_msg and m.recipient == recipient_msg:
+                from_to.append(m)
+            elif m.sender == recipient_msg and m.recipient == sender_msg:
+                from_to.append(m)
+        return from_to
 
     def form_valid(self, form):
         form = MessageForm
@@ -196,3 +210,13 @@ class Chat(DataMixin, CreateView, ListView):
                 return redirect('chat', recipient.slug)
         return form
 
+
+def send_message(request, slug):
+
+    data = json.loads(request.body)
+    new_chat = data['msg']
+    new_chat_message = Message.objects.create(message=new_chat,
+                                              sender=request.user.profile,
+                                              recipient=Profile.objects.get(slug=slug))
+    print(new_chat)
+    return JsonResponse(new_chat_message.message, safe=False)
