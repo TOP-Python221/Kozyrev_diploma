@@ -175,11 +175,14 @@ class Chat(DataMixin, CreateView, ListView):
     form_class = MessageForm
 
     def get_context_data(self, *, object_list=None, **kwargs):
+        num_msg = Message.objects.filter(sender_id=Profile.objects.get(slug=self.kwargs['slug']),
+                                         recipient_id=self.request.user.profile)
         context = super().get_context_data(**kwargs)
         c_def = self.get_using_context(title='Сообщения',
                                        form=self.form_class,
                                        msg=self.get_queryset,
-                                       profile=Profile.objects.get(slug=self.kwargs['slug'])
+                                       profile=Profile.objects.get(slug=self.kwargs['slug']),
+                                       num_msg=num_msg.count(),
                                        )
         return context | c_def
 
@@ -212,11 +215,22 @@ class Chat(DataMixin, CreateView, ListView):
 
 
 def send_message(request, slug):
-
     data = json.loads(request.body)
     new_chat = data['msg']
     new_chat_message = Message.objects.create(message=new_chat,
                                               sender=request.user.profile,
-                                              recipient=Profile.objects.get(slug=slug))
+                                              recipient=Profile.objects.get(slug=slug)
+                                              )
     print(new_chat)
     return JsonResponse(new_chat_message.message, safe=False)
+
+
+def received_message(request, slug):
+    chats = Message.objects.filter(sender_id=Profile.objects.get(slug=slug),
+                                   recipient_id=request.user.profile
+                                   )
+    arr = []
+    for chat in chats:
+        arr.append(chat.message)
+
+    return JsonResponse(arr, safe=False)

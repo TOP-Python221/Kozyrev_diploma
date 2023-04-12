@@ -10,16 +10,16 @@
 <div id="chat-body">
     {% for d in msg %}
 
-    <div>{{ d.sender }} {{ d.message }} {{ d.created }}</div>
+    <div> {{ d.message }} </div>
 
     {% endfor %}
 
 </div>
-    <form method="POST" id="myform">
-        {% csrf_token %}
-        {{ form.message }}
-        <button type="submit">Отправить</button>
-    </form>
+<form method="POST" id="myform">
+    {% csrf_token %}
+    {{ form.message }}
+    <button type="submit">Отправить</button>
+</form>
 
 
 <script>
@@ -44,16 +44,12 @@
     let form = document.getElementById("myform")
 
     form.addEventListener("submit", sendChat)
-
     function sendChat(e) {
         e.preventDefault()
         let chatMessage = document.getElementById("id_message").value
         console.log(chatMessage)
-
         const data = {msg: chatMessage};
-
         let url = "{% url 'sent_msg' slug=profile %}"
-
         fetch(url, {
             method: 'POST', // or 'PUT'
             headers: {
@@ -75,8 +71,41 @@
             .catch((error) => {
                 console.error('Error:', error);
             });
+    }
 
+    setInterval(receiveMessages, 2000)
 
+let counter = {{num_msg}}
+    function receiveMessages() {
+        let url = "{% url 'rec_msg' slug=profile %}"
+        fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+
+                if (data.length == 0) {
+                } else {
+
+                    let lastMsg = data[data.length - 1]
+
+                    if (counter == data.length) {
+                        console.log("there is no new chat")
+                    } else {
+                        let chat_body = document.getElementById('chat-body')
+                        let chatMessageBox = document.createElement("div")
+
+                        chatMessageBox.classList.add("chat-box-received")
+                        chatMessageBox.innerText = lastMsg
+                        chat_body.append(chatMessageBox)
+                        document.getElementById("id_message").value = ""
+                        console.log()
+                    }
+                }
+                counter = data.length
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
     }
 
 </script>
