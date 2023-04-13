@@ -8,7 +8,12 @@
 
 <form method="post">
     {% csrf_token %}
-    {{ form.as_p }}
+    {% for f in form %}
+        <div class="forms"><label class="label" for="{{f.id_for_label}}">{{ f.label }}
+        </label>
+            {{ f }}
+        </div>
+    {% endfor %}
     <button type="submit">Регистрация</button>
 </form>
 {% endblock %}

@@ -7,10 +7,11 @@ from .models import *
 class AddPostForm(forms.ModelForm):
     class Meta:
         model = Posts
-        fields = ['title', 'content', 'photo', 'cat']
+        fields = ['title', 'content', 'salary', 'photo', 'cat']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form_input'}),
             'content': forms.Textarea(attrs={'class': 'form_content'}),
+
         }
 
 
@@ -34,7 +35,7 @@ class UpDateProfileForm(forms.ModelForm):
 
 
 class MessageForm(forms.ModelForm):
-    message = forms.CharField(widget=forms.Textarea(attrs={'class': 'send_msg', 'rows':3}))
+    message = forms.CharField(widget=forms.Textarea(attrs={'class': 'send_msg', 'rows': 3}))
 
     class Meta:
         model = Message

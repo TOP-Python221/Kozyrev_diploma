@@ -11,11 +11,20 @@
         {% else %}
         <div class="photo"><img src="{% static 'images/2.jpeg' %}"></div>
         {% endif %}
-        <div class="post-content">
-            {% autoescape on %}
-            {{ p.content|linebreaks|truncatewords:5 }}
-            {% endautoescape %}
+
+        <div class="title">
+            <a href="{% url 'post' pk=p.pk %}">
+                {{ p.title }}
+            </a>
         </div>
+        <div class="post-content">
+            <a href="{% url 'post' pk=p.pk %}">
+                {% autoescape on %}
+                {{ p.content|linebreaks|truncatewords:5 }}
+                {% endautoescape %}
+            </a>
+        </div>
+
         <div class="post-name">
             <a href="{% url 'profile_user' slug=p.user %}">{{ p.user }}</a>
         </div>
@@ -26,6 +35,15 @@
         </div>
     </div>
     {% endfor %}
+
+</div>
+<div class="page">
+    <ul>
+        {% for p in paginator.page_range %}
+        <a href="?page={{ p }}">{{ p }}</a>
+        {% endfor %}
+    </ul>
+
 </div>
 
 {% endblock %}

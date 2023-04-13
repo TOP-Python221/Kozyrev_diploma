@@ -72,6 +72,7 @@ class Posts(models.Model):
     is_published = models.BooleanField(default=True)
     user = models.ForeignKey(Profile, on_delete=models.CASCADE, null=True)
     cat = models.ForeignKey('Category', on_delete=models.PROTECT)
+    response = models.ManyToManyField(User, blank=True)
 
     def __str__(self):
         return self.title

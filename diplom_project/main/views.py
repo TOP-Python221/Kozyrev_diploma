@@ -45,17 +45,35 @@ class CategoryPost(DataMixin, ListView):
         return Posts.objects.filter(cat__slug=self.kwargs['cat_slug'])
 
 
-class ShowPost(DataMixin, DetailView):
+class ShowPost(LoginRequiredMixin, DataMixin, DetailView):
     """Представление выбранных постов"""
     model = Posts
     template_name = 'main/index/post.html'
     slug_url_kwarg = 'post_slug'
     context_object_name = 'post'
+    login_url = reverse_lazy('login')
 
     def get_context_data(self, *, object_list=None, **kwargs):
+        post = Posts.objects.get(id=self.kwargs['pk'])
         context = super().get_context_data(**kwargs)
-        c_def = self.get_using_context(title=context['post'])
+        c_def = self.get_using_context(title=context['post'],
+                                       profile=Profile.objects.get(id=post.user_id),
+                                       response=post.response.all())
         return context | c_def
+
+
+def response(request, pk):
+    post = Posts.objects.get(pk=pk)
+    profiles = Profile.objects.all()
+    response_post = post.response.all()
+    is_response = False
+    for r in response_post:
+        if r == request.user:
+            is_response = True
+            break
+    if not is_response:
+        post.response.add(request.user)
+    return redirect('post', post.pk)
 
 
 class Addpage(LoginRequiredMixin, DataMixin, CreateView):

@@ -4,20 +4,34 @@
 {{ title }}
 {% block choice %}
 {% endblock %}
+{% block all_content %}
 
-{% block content %}
-
-<div class="up_post">
+<div class="post">
     {% if post.photo %}
-    <div class="up_post_photo"><img src="{{ post.photo.url }}"></div>
+    <div class="photo"><img src="{{ post.photo.url }}"></div>
     {% else %}
     <div class="photo"><img src="{% static 'images/2.jpeg' %}"></div>
     {% endif %}
-    <div>
+    <div class="profile_info">
+        <div class="post_profile">
+        <a href="{% url 'profile_user' slug=post.user %}">
+                                 {{ profile }}
+        </a>
+        </div>
+    </div>
+    <div class="post_content">
         <h1> {{post.title}}</h1>
         {{ post.content|linebreaks}}
     </div>
-
+    <form method="post" action="{% url 'response' post.pk %}">
+        {% csrf_token %}
+        <button class="add_response" type="submit">Откликнутся</button>
+    </form>
 </div>
+
+{% endblock %}
+
+{% block content %}
+
 
 {% endblock %}

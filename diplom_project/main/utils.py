@@ -10,7 +10,7 @@ menu = [{'title': 'Главная', 'url_name': 'home'},
 class DataMixin:
     """Едино-образное представление контекстом"""
 
-    paginate_by = 4  # переменная для отображения кол постов на одной странице
+    paginate_by = 6  # переменная для отображения кол постов на одной странице
 
     def get_using_context(self, **kwargs):
         context = kwargs

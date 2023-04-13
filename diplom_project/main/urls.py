@@ -4,7 +4,8 @@ from .views import *
 urlpatterns = [
     path('', MainPost.as_view(), name='home'),
     path('message', AllChat.as_view(), name='message'),
-    path('post/<slug:post_slug>/', ShowPost.as_view(), name='post'),
+    path('post/<int:pk>/', ShowPost.as_view(), name='post'),
+    path('/<int:pk>/', response, name='response'),
     path('category/<slug:cat_slug>/', CategoryPost.as_view(), name='category'),
     path('add_post', Addpage.as_view(), name='add_post'),
     path('login', LoginUser.as_view(), name='login'),

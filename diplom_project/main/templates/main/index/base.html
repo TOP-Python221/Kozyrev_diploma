@@ -31,7 +31,7 @@
     {% endfor %}
     {% if request.user.is_authenticated%}
 
-    <div class="home">
+    <div class="home_log">
         <a href="{% url 'profile_user' request.user.profile.slug %}">{{ user.username }}</a> |
         <a href="{% url 'logout' %}">Выход</a>
     </div>
@@ -71,16 +71,10 @@
 
     {% endblock %}
     {% endblock %}
+
 </div>
 
-<!--    <div>-->
-<!--        <ul>-->
-<!--            {% for p in paginator.page_range %}-->
-<!--            <a href="?page={{ p }}">{{ p }}</a>-->
-<!--            {% endfor %}-->
-<!--        </ul>-->
 
-<!--    </div>-->
 
 
 {% block footer %}

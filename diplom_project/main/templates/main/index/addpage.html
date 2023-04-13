@@ -4,22 +4,24 @@
 {% block choice %}
 {% endblock %}
 {% block content%}
+{% block all_content %}
+<div class="add_content">
+    <h1 class="h1">Добавить объявление</h1>
+    <form class="add_page" action="{% url 'add_post' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>{{ form.non_field_errors }}</div>
+        {% for f in form%}
+        <div class="form-post"><label class="label" for="{{f.id_for_label}}">{{ f.label }}: </label>{{ f }}</div>
 
-<h1>Добавить объявление</h1>
-<form class="add_page" action="{% url 'add_post' %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    <div>{{ form.non_field_errors }}</div>
-    {% for f in form%}
-    <div class="form-post"><label for="{{f.id_for_label}}">{{ f.label }}: </label>{{ f }}</div>
-
-    <div> {{f.errors }}</div>
-
-
-    {% endfor %}
-    <div class="home">
-        <button type="submit">Добавить</button>
-    </div>
-</form>
+        <div> {{f.errors }}</div>
 
 
+        {% endfor %}
+
+            <button class="add" type="submit">Добавить</button>
+
+    </form>
+</div>
+
+{% endblock %}
 {% endblock%}
