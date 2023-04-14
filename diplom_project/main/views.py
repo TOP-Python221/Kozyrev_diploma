@@ -173,17 +173,23 @@ class UpDateProfileView(DataMixin, UpdateView):
 class AllChat(DataMixin, ListView):
     model = Message
     template_name = 'main/index/message.html'
-    context_object_name = 'Chats'
+    context_object_name = 'chats'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        c_def = self.get_using_context(title='Сообщения')
+        c_def = self.get_using_context(title='Сообщения',
+                                       profiles=Profile.objects.all(),
+                                       )
         return context | c_def
 
-    def get_queryset(self):
-        message = Message.objects.filter(recipient_id=self.request.user.id).order_by('-created')[:1]
-        from_message = Message.objects.filter(sender_id=self.request.user.id).order_by('-created')[:1]
-        return message | from_message
+
+def new_msg(request):
+    profiles = Profile.objects.all()
+    arr = []
+    for profile in profiles:
+        chats = Message.objects.filter(sender_id=profile.id, recipient_id=request.user.id, is_read=False)
+        arr.append(chats.count())
+    return JsonResponse(arr, safe=False)
 
 
 class Chat(DataMixin, CreateView, ListView):
@@ -207,6 +213,10 @@ class Chat(DataMixin, CreateView, ListView):
     def get_queryset(self):
         sender_msg = self.request.user.profile
         recipient_msg = Profile.objects.get(slug=self.kwargs['slug'])
+        rec_msg = Message.objects.filter(sender=sender_msg, recipient=recipient_msg)
+        sent_msg = Message.objects.filter(sender=recipient_msg, recipient=sender_msg)
+        sent_msg.update(is_read=True)
+        rec_msg.update(is_read=True)
         all_msg = Message.objects.all()
         from_to = []
         for m in all_msg:

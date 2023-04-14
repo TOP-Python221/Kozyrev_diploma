@@ -7,11 +7,11 @@
 {% block all_content %}
 <div class="add_content">
     <h1 class="h1">Добавить объявление</h1>
-    <form class="add_page" action="{% url 'add_post' %}" method="post" enctype="multipart/form-data">
+    <form class="add_page_post" action="{% url 'add_post' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         <div>{{ form.non_field_errors }}</div>
         {% for f in form%}
-        <div class="form-post"><label class="label" for="{{f.id_for_label}}">{{ f.label }}: </label>{{ f }}</div>
+        <div class="form-post"><label class="label">{{ f.label }}: </label>{{ f }}</div>
 
         <div> {{f.errors }}</div>
 

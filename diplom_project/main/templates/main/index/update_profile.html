@@ -3,16 +3,27 @@
 {{ title }}
 {% block choice%}
 {% endblock %}
-<div>
-    {% block all_content %}
-    <h2>Редактирование профиля</h2>
-<form class="add_page" action="{% url 'update_profile' slug=request.user %}" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {% for f in form %}
-    <div>{{f}}</div>
-    {% endfor %}
-    <button type="submit" class="btn btn-dark">Подтвердить изменение профиля</button>
 
-</form>
-    {% endblock %}
+    {% block all_content %}
+<div class="add_content">
+    <h1 class="h1">Обновление профиля</h1>
+    <form class="add_page" action="{% url 'add_post' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>{{ form.non_field_errors }}</div>
+        {% for f in form%}
+        <div class="form-post">
+            <label class="label" >
+                {{ f.label }}:
+        </label>{{ f }}
+        </div>
+
+        <div> {{f.errors }}</div>
+
+
+        {% endfor %}
+
+            <button class="add" type="submit">Добавить</button>
+
+    </form>
 </div>
+    {% endblock %}

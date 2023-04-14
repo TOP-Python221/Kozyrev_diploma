@@ -5,13 +5,15 @@
 {% endblock %}
 {% block all_content %}
 <div class="login_form">
-<form method="post">
+    <h1 class="h1">Вход</h1>
+
+<form method="post" class="add_page">
 
     {% csrf_token %}
     {% for f in form %}
-        <div class="forms"><label class="label" for="{{f.id_for_label}}">{{ f.label }}
-        </label>
-            {{ f }}
+        <div class="form-post-log">
+
+            {{f}}
         </div>
     {% endfor %}
     <button class="btn_log" type="submit">Войти</button>

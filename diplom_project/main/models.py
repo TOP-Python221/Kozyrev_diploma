@@ -114,23 +114,4 @@ class Message(models.Model):
     def __str__(self):
         return self.message
 
-# ИСПОЛЬЗОВАТЬ: пример привязки сообщений к пользователям
 
-# class User(models.Model):
-#     name = models.CharField(max_length=15)
-
-# class Message(models.Model):
-#     text = models.TextField()
-#     user_from = models.ForeignKey(User, models.CASCADE)
-#     user_to = models.ForeignKey(User, models.CASCADE)
-
-# u1 = User()
-
-# все сообщения пользователя: отправленные и полученные
-# u1.message_set_all()
-
-# отправленные сообщения пользователя
-# u1.message_set.filter(user_from_id=u1.id)
-
-# полученные сообщения пользователя
-# u1.message_set.filter(user_to_id=u1.id)

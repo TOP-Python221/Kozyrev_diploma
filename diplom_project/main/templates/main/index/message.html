@@ -3,21 +3,38 @@
 {{ title }}
 
 {% block all_content %}
-{% if Chats == 0 %}
-<div>rgrgr</div>
-{% endif %}
-{% for c in Chats %}
-{% if c.is_read %}
-<a href="#">
-    <div id="chat_read" class="chat">{{ c.sender }} {{ c.message }} {{ c.created }}</div>
-</a>
-{% else %}
-<a href="#">
-    <div id="chat_not_read" class="chat">{{ c.sender }} {{ c.message }} {{ c.created }}</div>
-</a>
+<div class="all_message">
+{% for p in profiles %}
 
-{% endif %}
+<div class="message_block">
+<a href="{% url 'chat' slug=p.slug %}">
+    {{ p.slug }}
+    </a>
+    <div></div>
 
+
+<div class="msg"> </div>
+    </div>
 {% endfor %}
-{% endblock %}
+    </div>
 
+<script>
+    setInterval(getMessage, 1000)
+    function getMessage(){
+        let url = "{% url 'new_msg' %}"
+
+    fetch(url)
+      .then(res=>res.json())
+      .then(data=>{
+        let chatNotificationBtn = document.getElementsByClassName("msg")
+        for(let i = 0; i<data.length; i++){
+          chatNotificationBtn[i].innerText = data[i]
+        }
+      })
+      .catch(error => console.log(error))
+    }
+</script>
+
+
+
+{% endblock %}

@@ -7,20 +7,29 @@
 {% endblock%}
 {% block all_content %}
 
-<div id="chat-body">
-    {% for d in msg %}
+<div class="chat_body" >
+    <div class="msg_all" id="chat-body">
+    {% for m in msg %}
 
-    <div> {{ d.message }} </div>
+
+        {% if m.sender == user.profile %}
+        <div class="msg_from">{{ m.message }}</div>
+        {% else %}
+        <div class="msg_to">{{ m.message }}</div>
+        {% endif %}
+
+
 
     {% endfor %}
+         </div>
 
-</div>
-<form method="POST" id="myform">
+
+<form class="btn_msg" method="POST" id="myform">
     {% csrf_token %}
     {{ form.message }}
     <button type="submit">Отправить</button>
 </form>
-
+</div>
 
 <script>
     function getCookie(name) {
@@ -47,7 +56,7 @@
     function sendChat(e) {
         e.preventDefault()
         let chatMessage = document.getElementById("id_message").value
-        console.log(chatMessage)
+
         const data = {msg: chatMessage};
         let url = "{% url 'sent_msg' slug=profile %}"
         fetch(url, {
@@ -60,10 +69,10 @@
         })
             .then(response => response.json())
             .then(data => {
-                console.log('Success:', data);
+
                 let chat_body = document.getElementById('chat-body')
                 let chatMessageBox = document.createElement('div')
-                chatMessageBox.classList.add('chat-box-sent')
+                chatMessageBox.classList.add('msg_from')
                 chatMessageBox.innerText = data
                 chat_body.append(chatMessageBox)
                 document.getElementById("id_message").value = ''
@@ -81,7 +90,7 @@ let counter = {{num_msg}}
         fetch(url)
             .then(response => response.json())
             .then(data => {
-                console.log('Success:', data);
+
 
                 if (data.length == 0) {
                 } else {
@@ -89,12 +98,11 @@ let counter = {{num_msg}}
                     let lastMsg = data[data.length - 1]
 
                     if (counter == data.length) {
-                        console.log("there is no new chat")
                     } else {
                         let chat_body = document.getElementById('chat-body')
-                        let chatMessageBox = document.createElement("div")
+                        let chatMessageBox = document.getElementsByClassName('msg_from')
 
-                        chatMessageBox.classList.add("chat-box-received")
+                        chatMessageBox.classList.add("msg_from")
                         chatMessageBox.innerText = lastMsg
                         chat_body.append(chatMessageBox)
                         document.getElementById("id_message").value = ""

@@ -4,16 +4,25 @@
 {% block choice%}
 {% endblock %}
 
-{% block content %}
 
-<form method="post">
-    {% csrf_token %}
-    {% for f in form %}
-        <div class="forms"><label class="label" for="{{f.id_for_label}}">{{ f.label }}
-        </label>
-            {{ f }}
-        </div>
-    {% endfor %}
-    <button type="submit">Регистрация</button>
-</form>
+{% block all_content %}
+<div class="add_content">
+    <h1 class="h1">Регистрация</h1>
+    <form class="add_page_reg" action="{% url 'add_post' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>{{ form.non_field_errors }}</div>
+        {% for f in form%}
+        <div class="form-post"><label class="label" >{{ f.label }}: </label>{{ f }}</div>
+
+        <div> {{f.errors }}</div>
+
+
+        {% endfor %}
+
+            <button class="btn_reg" type="submit">Добавить</button>
+
+    </form>
+</div>
+{% endblock %}
+{% block content %}
 {% endblock %}
